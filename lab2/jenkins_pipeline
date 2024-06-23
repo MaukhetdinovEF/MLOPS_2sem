@@ -1,0 +1,31 @@
+#!/usr/bin/env
+
+pipeline {
+    agent any
+    stages {
+        stage('Informing') {
+            steps {
+                echo '--- Environment info ---'
+                sh 'python3 --version'
+                sh 'python3 -m pip --version'
+            }
+        }
+        stage('Getting repo') {
+            steps {
+                echo 'clone the repo'
+                sh 'rm -fr MLOPS_2sem'
+                sh 'rm -fr requirements.txt'
+                sh 'git clone https://github.com/MaukhetdinovEF/MLOPS_2sem.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'stage 2 here'
+                sh 'python3 -m pip freeze > ./MLOPS_2sem/requirements.txt'
+                sh 'python3 -m pip install -r ./MLOPS_2sem/requirements.txt'
+                sh 'chmod u+x ./MLOPS_2sem/lab1/pipeline.sh'
+                sh './MLOPS_2sem/lab1/pipeline.sh'
+            }
+        }
+    }
+}
