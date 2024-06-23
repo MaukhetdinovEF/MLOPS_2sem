@@ -1,5 +1,6 @@
 __pycache__
 .venv
 .pytest_cache
-
+.benchmarks
 .idea/
+lab5/**/*.csv
